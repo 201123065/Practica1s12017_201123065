@@ -10,5 +10,9 @@ package javaapplication51;
  * @author marcosmayen
  */
 public class Estructura {
+    public Estructura(){
+        
+    }
+    
     
 }
