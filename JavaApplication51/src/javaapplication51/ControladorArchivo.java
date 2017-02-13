@@ -34,27 +34,17 @@ public class ControladorArchivo {
     FileReader FR;
     FileWriter FW;
     public Boolean leer(){
+        try{
         File f;
         javax.swing.JFileChooser j = new javax.swing.JFileChooser();
         j.showOpenDialog(j);
         String path = j.getSelectedFile().getAbsolutePath();
         String lectura ="";
         f = new File(path);
-        System.out.println(f);
         separador(f);
-        /*
-        try{
-            FileReader fr = new FileReader(f);
-            BufferedReader br = new BufferedReader(fr);
-            String aux;
-            while((aux=br.readLine())!=null){
-                lectura = lectura+aux+"\n";
-            }
-            return separador(lectura);
-        }catch(IOException e){
+        }catch(NullPointerException e){
             System.out.println("ERROR");
         }
-                */
         return false;
     }
     String MISTAKE="";
@@ -67,14 +57,69 @@ public class ControladorArchivo {
             DocumentBuilder dBuilder = buildFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(new FileInputStream(cadena));
             doc.normalize();
-            //scrabble
-            NodeList raizNodo = doc.getElementsByTagName("scrabble");
-            Node raiz=raizNodo.item(0);
-            Element elementoRaiz = (Element)raiz;
+            //<scrabble></scrabble>
+            NodeList Scrabble = doc.getElementsByTagName("scrabble");
+            Node raiz=Scrabble.item(0);
+            Element elementoScrabble = (Element)raiz;
             //dimensiones
-            NodeList dimensionList = elementoRaiz.getElementsByTagName("dimension");
+            NodeList dimensionList = elementoScrabble.getElementsByTagName("dimension");
             Element dimensionL = (Element)dimensionList.item(0);
             DIMENSION=Integer.parseInt(dimensionL.getTextContent());
+            System.out.println("do");
+            NodeList dobles = elementoScrabble.getElementsByTagName("dobles");
+            Node dobles_item = dobles.item(0);
+            Element dob = (Element)dobles_item;
+            NodeList casilla = dob.getElementsByTagName("casilla");
+            for(int i=0;i<casilla.getLength();i++){
+                Node varXY = casilla.item(i);
+                Element XY =(Element)varXY;
+                NodeList X=XY.getElementsByTagName("x");
+                NodeList Y =XY.getElementsByTagName("y");
+                Node var_X=X.item(0);
+                Node var_Y=Y.item(0);
+                //valor de X
+                Element x=(Element)var_X;
+                //valor de Y
+                Element y=(Element)var_Y;
+                System.out.println(x.getTextContent()+"___"+y.getTextContent());
+            }
+            System.out.println("TRIPLES");
+            NodeList triples = elementoScrabble.getElementsByTagName("triples");
+            Node triples_item = triples.item(0);
+            Element tri = (Element)triples_item;
+            NodeList casillaT = tri.getElementsByTagName("casilla");
+            for(int i=0;i<casillaT.getLength();i++){
+                Node varXY = casillaT.item(i);
+                Element XY =(Element)varXY;
+                NodeList X=XY.getElementsByTagName("x");
+                NodeList Y =XY.getElementsByTagName("y");
+                Node var_X=X.item(0);
+                Node var_Y=Y.item(0);
+                //valor de X
+                Element x=(Element)var_X;
+                //valor de Y
+                Element y=(Element)var_Y;
+                System.out.println(x.getTextContent()+"___"+y.getTextContent());
+            }
+            
+            
+            
+            /* for (int i=0;i<dobles.getLength();i++){
+                Node casilla = dobles.item(i);
+                Element casillaE = (Element)casilla;
+                NodeList x = casillaE.getElementsByTagName("x");
+                Element val_x=(Element)x.item(i);
+                NodeList y = casillaE.getElementsByTagName("y");
+                Element val_y=(Element)y.item(i);
+                System.out.println(val_x.getTextContent());
+                System.out.println("------");
+                System.out.println(val_y.getTextContent());
+            }
+            */
+            
+            
+            
+            NodeList diccionario = elementoScrabble.getElementsByTagName("diccionario");
             //dobles
             
             
