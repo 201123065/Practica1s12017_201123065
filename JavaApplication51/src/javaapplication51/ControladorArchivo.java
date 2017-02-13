@@ -101,28 +101,18 @@ public class ControladorArchivo {
                 Element y=(Element)var_Y;
                 System.out.println(x.getTextContent()+"___"+y.getTextContent());
             }
-            
-            
-            
-            /* for (int i=0;i<dobles.getLength();i++){
-                Node casilla = dobles.item(i);
-                Element casillaE = (Element)casilla;
-                NodeList x = casillaE.getElementsByTagName("x");
-                Element val_x=(Element)x.item(i);
-                NodeList y = casillaE.getElementsByTagName("y");
-                Element val_y=(Element)y.item(i);
-                System.out.println(val_x.getTextContent());
-                System.out.println("------");
-                System.out.println(val_y.getTextContent());
-            }
-            */
-            
-            
-            
+           
             NodeList diccionario = elementoScrabble.getElementsByTagName("diccionario");
-            //dobles
+            Node diccionario_item = diccionario.item(0);
+            Element diccionario_e = (Element)diccionario_item;
+            NodeList palabra = diccionario_e.getElementsByTagName("palabra");
             
-            
+            for(int i=0;i<palabra.getLength();i++){
+                Node varP = palabra.item(i);
+                Element x=(Element)varP;
+                //valor de Y
+                System.out.println(x.getTextContent());
+            }
             
             return true;
         }catch(ParserConfigurationException e){}
