@@ -12,10 +12,9 @@ import javax.swing.JOptionPane;
  * @author marcosmayen
  */
 public class Principal extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Principal
-     */
+    Estructuras EDD = new Estructuras();
+    
+    
     public Principal() {
         initComponents();
     }
@@ -89,23 +88,27 @@ public class Principal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-circular_usuarios circ = new circular_usuarios();
         
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         
         String nombre= JOptionPane.showInputDialog(null,"ingrese el nombre del jugador",3);
-        circ.agregarCircular(nombre);
+        EDD.agregarCircular(nombre);
         
         
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        circ.corroborarLista();               
+        try{
+            EDD.corroborarLista();  
+        }catch(NullPointerException e){
+            System.out.println("usted carece de personalidad");
+        }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
-
+        
+        
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        ControladorArchivo CA = new ControladorArchivo();
-        Boolean cad = CA.leer();
+        Boolean cad = EDD.leer();
+        EDD.llerM();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     public static void main(String args[]) {
@@ -133,10 +136,8 @@ circular_usuarios circ = new circular_usuarios();
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Principal().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Principal().setVisible(true);
         });
     }
 
