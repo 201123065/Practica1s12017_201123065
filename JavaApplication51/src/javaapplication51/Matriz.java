@@ -10,36 +10,27 @@ package javaapplication51;
  * @author marcosmayen
  */
 public class Matriz {
-    public char letra;
-    public int punteo,multiplicador;
-    public int posx,posy;
-    public Matriz derecha,izquierda,arriba,abajo;
+    private char letra;
+    private int punteo,multiplicador;
+    private Matriz derecha,izquierda,arriba,abajo;
     
-    public Matriz(int x , int y){
-        posx=x;
-        posy=y;
+    public Matriz(){
+        multiplicador=1;
         derecha=izquierda=arriba=abajo=null;
     }
     
-    public Matriz(char n,int x , int y,int mult,int punto){
-        posx=x;
-        posy=y;
-        multiplicador=mult;
-        letra=n;
-        derecha=izquierda=arriba=abajo=null;
-        punteo=punto;
-    }
-    
-    public Matriz(char n,int x , int y,int mult,int punto, Matriz der,Matriz izq, Matriz up, Matriz down){
-        posx=x;
-        posy=y;
-        multiplicador=mult;
-        punteo=punto;
-        letra=n;
-        derecha = der;
-        izquierda=izq;
-        arriba =up;
-        abajo=down;
-        
-    }
+    //getters
+    public Matriz getDerecha(){return derecha;}
+    public Matriz getIzquierda(){return izquierda;}
+    public Matriz getArriba(){return arriba;}
+    public Matriz getAbajo(){return  abajo;}
+    public int getMultiplicador(){return multiplicador;}
+    public int getPunteo(){return punteo;}
+    //setters
+    public void setDerecha(Matriz valor){derecha=valor;}
+    public void setIzquierda(Matriz valor){izquierda=valor;}
+    public void setArriba(Matriz valor){arriba=valor;}
+    public void setAbajo(Matriz valor){abajo=valor;}
+    public void setChar(char l){letra=l;}
+    public void setmultiplicador(int valor){multiplicador=valor;}
 }

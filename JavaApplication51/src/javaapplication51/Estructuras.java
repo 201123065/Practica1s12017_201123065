@@ -26,7 +26,7 @@ import org.xml.sax.SAXException;
 public class Estructuras {
     
     //EDD de la matriz
-    protected Matriz celda,val_x,val_y,raizM;
+    protected Matriz celda,val_x,val_y,raizM,pivote;
     
     //EDD de la lista circular para usuarios
     protected usuarios apuntador,aux,ref;
@@ -53,13 +53,14 @@ public class Estructuras {
             ref=ref.Siguiente;
         }
     }
-    public void corroborarLista(){
+    public String corroborarLista(){
         usuarios recorrer=apuntador.Siguiente;
-        System.out.println(apuntador.nombre);
+        String cadena=apuntador.nombre+"\n";
         while(recorrer!=apuntador){
-            System.out.println(recorrer.nombre);
+            cadena=cadena+recorrer.nombre+"\n";
             recorrer=recorrer.Siguiente;
         }
+        return cadena;
     }
     
     public boolean existe_casilla(){return (celda==null)?true:false;}
@@ -67,51 +68,46 @@ public class Estructuras {
     
     public void MATRIZ(){
         celda=null;
-        for(int i=0;i<DIMENSION;i++){
-            for(int j=0;j<DIMENSION;j++){
-                if(celda==null){
-                    raizM=celda =val_y=new Matriz(i, j);
-                }
-                else if(i==0){
-                    val_x=new Matriz(i, j);
-                    val_y.derecha=val_x;
-                    val_x.izquierda=val_y;
-                    val_y=val_y.derecha;
-                }
-                else if(j==0){
-                    val_y=celda;
-                    val_x=new Matriz(i, j);
-                    val_y.abajo=val_x;
-                    val_x.arriba=val_y;
-                    val_y=val_y.derecha;
-                    celda=val_x;
-                }
+        for( int i=0;i<=DIMENSION;i++){
+            for(int j=0;j<=DIMENSION;j++){
+                if(celda==null){raizM=celda=val_y=val_x=new Matriz();}
                 else{
-                    Matriz naux = new Matriz(i, j);
-                    naux.izquierda=val_x;
-                    val_x.derecha=naux;
-                    naux.arriba=val_y;
-                    val_y.abajo=naux;
-                    val_x=naux;
-                    val_y=val_y.derecha;
+                    val_x=new Matriz();
+                    if(i==0){
+                        val_y.setDerecha(val_x);
+                        val_x.setIzquierda(val_y);
+                    }else if(j==0){
+                        val_x.setArriba(val_y);
+                        val_y.setAbajo(val_x);
+                        celda=pivote=val_x;
+                    }
+                    else{
+                        val_x.setArriba(val_y);
+                        val_y.setAbajo(val_x);
+                        val_x.setIzquierda(pivote);
+                        pivote.setDerecha(val_x);
+                        pivote=val_x;
+                    }
+                    val_y=val_y.getDerecha();
                 }
             }
-            
+            val_y=celda;
         }
     }
+    
     public void llerM(){
         Matriz recorrer,apuntador;
-        apuntador=val_x;
-        for(int i=apuntador.posy;i>=0;i--){ 
-            recorrer=apuntador;
-            apuntador=apuntador.arriba;
-            for(int x=recorrer.posy;x>=0;x--){
-                    System.out.print("["+recorrer.posx+" , "+recorrer.posy+"]");
-                    recorrer=recorrer.izquierda;
+        apuntador=recorrer=raizM;
+        
+        while(apuntador.getAbajo()!=null){
+            while(recorrer.getDerecha()!=null){
+                System.out.print("["+recorrer.getMultiplicador()+"]");
+                recorrer=recorrer.getDerecha();
             }
             System.out.println("");
-            
+            apuntador=recorrer=apuntador.getAbajo();
         }
+        
     }
     //LEER ARCHIVOS INGRESADOS
     File f;
@@ -127,7 +123,7 @@ public class Estructuras {
         f = new File(path);
         separador(f);
         }catch(NullPointerException e){
-            System.out.println("ERROR");
+            System.out.println(MISTAKE);
         }
         return false;
     }
@@ -151,10 +147,10 @@ public class Estructuras {
             DIMENSION=Integer.parseInt(dimensionL.getTextContent());
             MATRIZ();
             Matriz nodoAux;
-            System.out.println("dobles");
             NodeList dobles = elementoScrabble.getElementsByTagName("dobles");
             Node dobles_item = dobles.item(0);
             Element dob = (Element)dobles_item;
+            //System.out.println("DOBLES"); 
             NodeList casilla = dob.getElementsByTagName("casilla");
             for(int i=0;i<casilla.getLength();i++){
                 Node varXY = casilla.item(i);
@@ -164,16 +160,19 @@ public class Estructuras {
                 Node var_X=X.item(0);
                 Node var_Y=Y.item(0);
                 //valor de X
-                Element x=(Element)var_X;
+                Element valx=(Element)var_X;
+                int x=Integer.parseInt(valx.getTextContent());
                 //valor de Y
-                Element y=(Element)var_Y;
-                nodoAux= new Matriz(Integer.parseInt(x.getTextContent()),Integer.parseInt( y.getTextContent()));
-                System.out.println(x.getTextContent()+"___"+y.getTextContent());
-                celda=raizM;
+                Element valy=(Element)var_Y;
+                int y =Integer.parseInt(valy.getTextContent());
+                
+                //System.out.println(x+"---"+y );
+                potenciador_matriz(x,y,2); 
+                
                     
                 
             }
-            System.out.println("TRIPLES");
+            //System.out.println("TRIPLES");
             NodeList triples = elementoScrabble.getElementsByTagName("triples");
             Node triples_item = triples.item(0);
             Element tri = (Element)triples_item;
@@ -189,7 +188,8 @@ public class Estructuras {
                 Element x=(Element)var_X;
                 //valor de Y
                 Element y=(Element)var_Y;
-                System.out.println(x.getTextContent()+"___"+y.getTextContent());
+                //System.out.println(x.getTextContent()+"___"+y.getTextContent());
+                potenciador_matriz(Integer.parseInt(x.getTextContent()), Integer.parseInt(y.getTextContent()), 3);
             }
            
             NodeList diccionario = elementoScrabble.getElementsByTagName("diccionario");
@@ -201,7 +201,8 @@ public class Estructuras {
                 Node varP = palabra.item(i);
                 Element x=(Element)varP;
                 //valor de la palabra ingresada
-                System.out.println(x.getTextContent());
+                //IMPRIMIR DICCIONARIO
+                //System.out.println(x.getTextContent());
             }
             
             return true;
@@ -211,9 +212,32 @@ public class Estructuras {
         return false;
     }
     
-    
-    
+    public void potenciador_matriz(int x, int y,int potencia) {
+        if((x>0 && x<=DIMENSION) && (y>0 && y<=DIMENSION)){
+            celda=raizM;
+            for(int i=0;i<x-1;i++){
+                celda=celda.getDerecha();
+            }
+            for(int j=0;j<y-1;j++){
+                celda=celda.getAbajo();
+            }
+            celda.setmultiplicador(potencia);
+
+        }
+        else{
+            System.out.println("hay un tufo por aca? :"+x+","+y);
+            MISTAKE = (x>DIMENSION && y>DIMENSION)?MISTAKE+"'X' y 'Y' se salen del parametro":(x>DIMENSION)?MISTAKE+"'X' se sale del parametro ["+x+"]":MISTAKE+"'Y' se sale del parametro["+y+"]";
+        }
+    }
     
     
     
 }
+
+
+
+
+
+
+
+
