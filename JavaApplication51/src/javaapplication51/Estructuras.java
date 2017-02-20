@@ -39,6 +39,7 @@ public class Estructuras {
         celda=val_x=val_y=null;
         
         //Diccionario
+        lista=apuntador_D=null;
         
     }
     public Boolean hay_usuarios(){
@@ -71,6 +72,7 @@ public class Estructuras {
     public void agregarPalabra(String palabra){
         if(!existe_palabra()){
             lista=apuntador_D=new Diccionario(palabra);
+            int puntos = 0;
         }else{
             lista.setSiguiente(new Diccionario(palabra));
             lista=lista.getSiguiente();
@@ -216,6 +218,7 @@ public class Estructuras {
                 //valor de la palabra ingresada
                 //IMPRIMIR DICCIONARIO
                 //System.out.println(x.getTextContent());
+                agregarPalabra(x.getTextContent());
             }
             
             return true;
@@ -241,6 +244,9 @@ public class Estructuras {
             System.out.println("hay un tufo por aca? :"+x+","+y);
             MISTAKE = (x>DIMENSION && y>DIMENSION)?MISTAKE+"'X' y 'Y' se salen del parametro":(x>DIMENSION)?MISTAKE+"'X' se sale del parametro ["+x+"]":MISTAKE+"'Y' se sale del parametro["+y+"]";
         }
+    }
+    public void jugar(){
+        Juego J = new Juego(lista, raizM ,ref, DIMENSION);
     }
     
     
