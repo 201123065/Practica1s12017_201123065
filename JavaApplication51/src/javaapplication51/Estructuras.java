@@ -31,8 +31,11 @@ public class Estructuras {
     protected usuarios apuntador,aux,ref;
     //EDD del diccionario
     protected Diccionario lista,apuntador_D;
+    
+    private int jugadores;
     public Estructuras(){
         //usuarios
+        jugadores=0;
         apuntador=aux=ref=null;
         
         //matriz
@@ -57,6 +60,7 @@ public class Estructuras {
             aux.Siguiente=apuntador;
             ref=ref.Siguiente;
         }
+        jugadores++;
     }
     public String corroborarLista(){
         usuarios recorrer=apuntador.Siguiente;
@@ -246,7 +250,7 @@ public class Estructuras {
         }
     }
     public void jugar(){
-        Juego J = new Juego(lista, raizM ,ref, DIMENSION);
+        Juego J = new Juego(lista, raizM ,ref, DIMENSION,jugadores);
     }
     
     
