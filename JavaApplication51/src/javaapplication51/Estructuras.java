@@ -27,15 +27,19 @@ public class Estructuras {
     
     //EDD de la matriz
     protected Matriz celda,val_x,val_y,raizM,pivote;
-    
     //EDD de la lista circular para usuarios
     protected usuarios apuntador,aux,ref;
+    //EDD del diccionario
+    protected Diccionario lista,apuntador_D;
     public Estructuras(){
         //usuarios
         apuntador=aux=ref=null;
         
         //matriz
         celda=val_x=val_y=null;
+        
+        //Diccionario
+        
     }
     public Boolean hay_usuarios(){
         return (apuntador==null)?true:false;
@@ -63,6 +67,15 @@ public class Estructuras {
         return cadena;
     }
     
+    public boolean existe_palabra(){return (lista==null)?true:false;}
+    public void agregarPalabra(String palabra){
+        if(!existe_palabra()){
+            lista=apuntador_D=new Diccionario(palabra);
+        }else{
+            lista.setSiguiente(new Diccionario(palabra));
+            lista=lista.getSiguiente();
+        }
+    }
     public boolean existe_casilla(){return (celda==null)?true:false;}
     
     
