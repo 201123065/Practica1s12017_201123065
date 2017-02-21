@@ -40,16 +40,15 @@ public class Juego extends JFrame{
                 etiqueta[i][j].setBounds(E*i+2,E*j+2, E-3, E-3);
                 System.out.print(temporal.getMultiplicador());
                 if(temporal.getMultiplicador()==1){
-                    etiqueta[i][j].setIcon(new ImageIcon(System.getProperty("user.dir")+"/imagenes/blanco.jpg"));
-                    etiqueta[i][j].setText("x1");
+                    etiqueta[i][j].setIcon(new ImageIcon(System.getProperty("user.dir")+"/imagenes/blanco.png"));
                 }else if (temporal.getMultiplicador()==2){
-                    etiqueta[i][j].setIcon(new ImageIcon(System.getProperty("user.dir")+"/imagenes/amarillo.jpg"));
+                    etiqueta[i][j].setIcon(new ImageIcon(System.getProperty("user.dir")+"/imagenes/amarillo.png"));
                     
                 }else if(temporal.getMultiplicador()==3){
-                    etiqueta[i][j].setIcon(new ImageIcon(System.getProperty("user.dir")+"/imagenes/verde.jpg"));
+                    etiqueta[i][j].setIcon(new ImageIcon(System.getProperty("user.dir")+"/imagenes/verde.png"));
                 }
                 add(etiqueta[i][j]);
-                etiqueta[i][j].setText("?");
+                etiqueta[i][j].setTransferHandler(new TransferHandler("icon"));
                 temporal=temporal.getDerecha();
             }
             System.out.println("");
@@ -61,6 +60,8 @@ public class Juego extends JFrame{
         for(int i=0;i<(int)Math.floor(Math.random()*jugadores);i++){
             ahora=ahora.Siguiente;
         }
+        
+        
         JLabel sigue = new JLabel("Turno de: '"+ahora.nombre+"'");
         JLabel punteo = new JLabel("Punteo :'"+ahora.punteo+"'");
         sigue.setBounds(E*DIMENSION+10, 20, 270, 20);
@@ -80,6 +81,7 @@ public class Juego extends JFrame{
                 JComponent jc = (JComponent)e.getSource();
                 TransferHandler th = jc.getTransferHandler();
                 th.exportAsDrag(jc, e, TransferHandler.COPY);
+                System.out.println(".:. hace algo ");
             }
 
             @Override
@@ -94,6 +96,18 @@ public class Juego extends JFrame{
             public void mouseExited(MouseEvent e) {
             }
         };
+        JLabel fichas = new JLabel("Fichas actuales: ");
+        fichas.setBounds(15, DIMENSION*E+20, 120, 10);
+        JLabel []letra=new JLabel[7];
+        for(int i=0;i<7;i++){
+            letra[i]=new JLabel("A");
+            letra[i].setBounds(i*E+125, DIMENSION*E+20, 10, 10);
+            letra[i].addMouseListener(m1);
+            letra[i].setIcon(new ImageIcon(System.getProperty("user.dir")+"/Letras/a.png"));
+            add(letra[i]);
+            letra[i].setTransferHandler(new TransferHandler("icon"));
+        }
+        add(fichas);
         
         
         setLayout(null);
