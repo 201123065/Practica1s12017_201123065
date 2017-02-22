@@ -119,6 +119,12 @@ public class Juego extends JFrame implements MouseListener, MouseMotionListener{
         setLocationRelativeTo(null);
         setVisible(true);
 
+        JButton Diccionario = new JButton("Lista Diccionario");
+        JButton Fichas = new JButton("Fichas Activas");
+        JButton matrizT = new JButton("Matriz tablero");
+        JButton cola_Fichas = new JButton("Cola de fichas");
+        JButton lista_D_Jugadores = new JButton("Lista de jugadores");
+        
         
     }
     

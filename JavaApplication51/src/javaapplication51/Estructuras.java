@@ -72,7 +72,7 @@ public class Estructuras {
         return cadena;
     }
     
-    public boolean existe_palabra(){return (lista==null)?true:false;}
+    public boolean existe_palabra(){return (lista!=null)?true:false;}
     public void agregarPalabra(String palabra){
         if(!existe_palabra()){
             lista=apuntador_D=new Diccionario(palabra);
@@ -213,17 +213,18 @@ public class Estructuras {
            
             NodeList diccionario = elementoScrabble.getElementsByTagName("diccionario");
             Node diccionario_item = diccionario.item(0);
-            Element diccionario_e = (Element)diccionario_item;
-            NodeList palabra = diccionario_e.getElementsByTagName("palabra");
-            
-            for(int i=0;i<palabra.getLength();i++){
-                Node varP = palabra.item(i);
-                Element x=(Element)varP;
-                //valor de la palabra ingresada
-                //IMPRIMIR DICCIONARIO
-                //System.out.println(x.getTextContent());
+             Element diccionario_e = (Element)diccionario_item;
+             NodeList palabra = diccionario_e.getElementsByTagName("palabra");
+              
+             for(int i=0;i<palabra.getLength();i++){
+                 Node varP = palabra.item(i);
+                 Element x=(Element)varP;
+                 //valor de Y
+                 System.out.println(x.getTextContent());
                 agregarPalabra(x.getTextContent());
-            }
+             }
+            
+            
             
             return true;
         }catch(ParserConfigurationException e){}
