@@ -136,9 +136,9 @@ public class Juego extends JFrame implements MouseListener, MouseMotionListener,
         matrizT.addActionListener(this);
         lista_D_Jugadores = new JButton("Lista de jugadores");
         lista_D_Jugadores.addActionListener(this);
-        Diccionario.setBounds(DIMENSION*E+200, 20, 200, 30);
-        matrizT.setBounds(DIMENSION*E+400, 20, 200, 30);
-        lista_D_Jugadores.setBounds(DIMENSION*E+600, 20, 200, 30);
+        Diccionario.setBounds(DIMENSION*E+250, 50, 150, 50);
+        matrizT.setBounds(DIMENSION*E+410, 50, 150, 50);
+        lista_D_Jugadores.setBounds(DIMENSION*E+570, 50, 150, 50);
         add(Diccionario);
         add(matrizT);
         add(lista_D_Jugadores);
@@ -152,19 +152,10 @@ public class Juego extends JFrame implements MouseListener, MouseMotionListener,
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        mx= e.getX();
-        my=e.getY();
-        mouseDragged=true;
-        e.consume();
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        mx= e.getX();
-        my=e.getY();
-        System.out.println(mx+"-"+my);
-        mouseDragged=false;
-        e.consume();
     
     }
 
