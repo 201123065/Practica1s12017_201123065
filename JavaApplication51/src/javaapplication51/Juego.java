@@ -7,6 +7,8 @@ package javaapplication51;
 
 import java.awt.Image;
 import java.awt.Label;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -25,13 +27,22 @@ import javax.swing.TransferHandler;
  *
  * @author marcosmayen
  */
-public class Juego extends JFrame implements MouseListener, MouseMotionListener{
+public class Juego extends JFrame implements MouseListener, MouseMotionListener,ActionListener{
     int mx,my;
     Boolean mouseDragged=false;
+    private plotter P = new plotter();
     private Diccionario DICCIONARIO;
     private Matriz MATRIZ;
     private usuarios USUARIOS;
     JLabel L1,L2,L3,L4,L5,L6,L7;
+    private JButton Diccionario;
+    private JButton Fichas;
+    private JButton matrizT;
+    private JButton cola_Fichas;
+    private JButton lista_D_Jugadores;
+    
+    
+    
     public Juego(Diccionario DICCIONARIO, Matriz MATRIZ, usuarios USUARIOS,int DIMENSION,int jugadores){
         super("Juego");
         this.DICCIONARIO=DICCIONARIO;
@@ -119,14 +130,24 @@ public class Juego extends JFrame implements MouseListener, MouseMotionListener{
         setLocationRelativeTo(null);
         setVisible(true);
 
-        JButton Diccionario = new JButton("Lista Diccionario");
-        JButton Fichas = new JButton("Fichas Activas");
-        JButton matrizT = new JButton("Matriz tablero");
-        JButton cola_Fichas = new JButton("Cola de fichas");
-        JButton lista_D_Jugadores = new JButton("Lista de jugadores");
+        Diccionario = new JButton("Lista Diccionario");
+        Diccionario.addActionListener(this);
+        matrizT = new JButton("Matriz tablero");
+        matrizT.addActionListener(this);
+        lista_D_Jugadores = new JButton("Lista de jugadores");
+        lista_D_Jugadores.addActionListener(this);
+        Diccionario.setBounds(DIMENSION*E+200, 20, 200, 30);
+        matrizT.setBounds(DIMENSION*E+400, 20, 200, 30);
+        lista_D_Jugadores.setBounds(DIMENSION*E+600, 20, 200, 30);
+        add(Diccionario);
+        add(matrizT);
+        add(lista_D_Jugadores);
         
         
     }
+    
+    public  void ActionPerformed(ActionEvent e) { 
+    }     
     
 
     @Override
@@ -174,6 +195,20 @@ public class Juego extends JFrame implements MouseListener, MouseMotionListener{
 
     @Override
     public void mouseExited(MouseEvent e) {
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      
+        if(e.getSource()==Diccionario){
+            P.diccionario(DICCIONARIO);
+        }
+        if(e.getSource()==matrizT){
+            P.generarMatriz(MATRIZ);
+        }
+        if(e.getSource()==lista_D_Jugadores){
+            P.jugadores(USUARIOS);
+        }
     }
     
     

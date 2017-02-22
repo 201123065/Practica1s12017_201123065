@@ -1,1 +1,6 @@
-digraph G {}
+digraph G {
+ asdasd->dasddsa;
+ dasddsa->tres;
+ tres->cuarto;
+ cuarto->asdasd;
+}

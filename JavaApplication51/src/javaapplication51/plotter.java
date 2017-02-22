@@ -106,10 +106,11 @@ public class plotter {
     public void diccionario(Diccionario d){
         String cadena ="digraph G {";
         while(d.getSiguiente()!=null){
-            cadena+="\n "+d.getPalabra()+"->"+d.getSiguiente().getPalabra();
+            cadena+="\n "+d.getPalabra()+"->"+d.getSiguiente().getPalabra()+";";
             d=d.getSiguiente();
         }
         cadena+="}";
+        System.out.println(cadena);
         generarARCHIVO(cadena);
         
     }

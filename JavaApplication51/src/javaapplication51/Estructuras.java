@@ -251,7 +251,7 @@ public class Estructuras {
         }
     }
     public void jugar(){
-        Juego J = new Juego(lista, raizM ,ref, DIMENSION,jugadores);
+        Juego J = new Juego(apuntador_D, raizM ,ref, DIMENSION,jugadores);
     }
     
     

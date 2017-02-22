@@ -154,7 +154,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         plotter pt = new plotter();
-        pt.diccionario(EDD.lista);
+        pt.diccionario(EDD.apuntador_D);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     public static void main(String args[]) {
